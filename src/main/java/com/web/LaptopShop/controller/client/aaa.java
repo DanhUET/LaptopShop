@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class aaa {
-    @GetMapping("/a")
+    @GetMapping("/")
     public String getMethodName() {
-        return "client/hello";
+        return "admin/dashboard/show";
     }
 
 }
