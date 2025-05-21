@@ -2,26 +2,35 @@ package com.web.LaptopShop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.web.LaptopShop.domain.User;
+import com.web.LaptopShop.service.UploadService;
 import com.web.LaptopShop.service.UserService;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/user")
 public class UserController {
     private UserService userService;
+    private UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("")
@@ -39,8 +48,21 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(@ModelAttribute("newUser") User newUser) {
+    public String createUser(@ModelAttribute("newUser") @Valid User newUser, BindingResult newUserBindingResult,
+            @RequestParam("uploadFile") MultipartFile file) {
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
 
+        if (newUserBindingResult.hasErrors()) {
+            return "admin/user/create";
+        }
+        String password = this.passwordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(password);
+        String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+        newUser.setAvatar(avatar);
+        newUser.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
         this.userService.handleSaveUser(newUser);
         return "redirect:/admin/user";
     }
@@ -81,4 +103,5 @@ public class UserController {
         this.userService.deleteUser(id);
         return "redirect:/admin/user";
     }
+
 }
