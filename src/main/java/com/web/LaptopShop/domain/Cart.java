@@ -53,11 +53,12 @@ public class Cart {
         this.id = id;
     }
 
-    public double getSum() {
+    public int getSum() {
         return sum;
     }
 
     public void setSum(int sum) {
         this.sum = sum;
     }
+
 }

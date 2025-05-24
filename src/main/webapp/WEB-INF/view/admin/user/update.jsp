@@ -14,6 +14,16 @@
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="/admin/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
             </head>
 
             <body class="sb-nav-fixed">
@@ -43,7 +53,6 @@
                                                 <form:input type="email" class="form-control" id="email"
                                                     value="${user.email}" path="email" />
                                             </div>
-
                                             <div class="col-12 mb-3 col-md-6">
                                                 <label for="fullname" class="form-label">Full Name:</label>
                                                 <form:input type="text" class="form-control" id="fullname"
@@ -54,7 +63,7 @@
                                                 <form:input type="text" class="form-control" id="phone"
                                                     value="${user.phone}" path="phone" />
                                             </div>
-                                            <div class="col-12 mb-3">
+                                            <div class="col-12 mb-3 col-md-6">
                                                 <label for="address" class="form-label">Address:</label>
                                                 <form:input type="text" class="form-control" id="address"
                                                     value="${user.address}" path="address" />

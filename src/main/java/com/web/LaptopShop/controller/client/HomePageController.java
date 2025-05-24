@@ -2,6 +2,9 @@ package com.web.LaptopShop.controller.client;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import com.web.LaptopShop.domain.Product;
 import com.web.LaptopShop.domain.User;
 import com.web.LaptopShop.domain.dto.RegisterDTO;
+import com.web.LaptopShop.repository.ProductRepository;
 import com.web.LaptopShop.service.ProductService;
 import com.web.LaptopShop.service.UserService;
 
@@ -32,11 +36,14 @@ public class HomePageController {
     private UserService userService;
     private final PasswordEncoder passwordEncoder;
     private ProductService productService;
+    private ProductRepository productRepository;
 
-    public HomePageController(UserService userService, PasswordEncoder passwordEncoder, ProductService productService) {
+    public HomePageController(UserService userService, PasswordEncoder passwordEncoder, ProductService productService,
+            ProductRepository productRepository) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/register")
@@ -72,15 +79,28 @@ public class HomePageController {
     }
 
     @GetMapping("/")
-    public String homePage(Model model) {
-        List<Product> products = this.productService.listProduct();
+    public String homePage(Model model, @RequestParam(value = "page", required = false) Integer page) {
+        if (page == null) {
+            page = 1;
+        }
+        Pageable pageable = PageRequest.of(page - 1, 8);
+
+        Page<Product> pageProduct = this.productService.listProduct(pageable);
+        List<Product> products = pageProduct.getContent();
         model.addAttribute("products", products);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pageProduct.getTotalPages());
         return "client/home/show";
     }
 
     @GetMapping("/access-deny")
     public String accessDeny() {
         return "client/auth/deny";
+    }
+
+    @GetMapping("/userInfo/{id}")
+    public String userInfo() {
+        return "client/userInfo/show";
     }
 
 }

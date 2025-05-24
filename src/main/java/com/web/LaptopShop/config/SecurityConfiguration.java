@@ -91,7 +91,7 @@ public class SecurityConfiguration {
                                                 .maxSessionsPreventsLogin(false))
                                 .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
                                 // giới hạn duy nhất 1 tài khoản được đăng nhập
-                                .rememberMe(r -> r.rememberMeServices(rememberMeServices()))// lưu tài khoản 30 ngày
+                                // .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
                                 .formLogin(formLogin -> formLogin
                                                 .loginPage("/login")
                                                 .successHandler(myAuthenticationSuccessHandler()) // chuyển hướng sau

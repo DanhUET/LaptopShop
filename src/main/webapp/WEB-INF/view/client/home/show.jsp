@@ -7,7 +7,7 @@
 
             <head>
                 <meta charset="utf-8">
-                <title>Fruitables - Vegetable Website Template</title>
+                <title>Trang chủ</title>
                 <meta content="width=device-width, initial-scale=1.0" name="viewport">
                 <meta content="" name="keywords">
                 <meta content="" name="description">
@@ -94,15 +94,22 @@
                                                                             value="${product.price}" var="myNum" />
                                                                         ${myNum} đ
                                                                     </p>
-                                                                    <a href="#"
-                                                                        class="btn border border-secondary rounded-pill px-2 py-1 text-primary small"><i
-                                                                            class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                        Add to cart</a>
+                                                                    <form action="/add-product-to-cart/${product.id}"
+                                                                        method="post">
+                                                                        <input type="hidden"
+                                                                            name="${_csrf.parameterName}"
+                                                                            value="${_csrf.token}" />
+                                                                        <button
+                                                                            class="btn border border-secondary rounded-pill px-2 py-1 text-primary small"><i
+                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                            Add to cart</button>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </c:forEach>
+
                                             </div>
 
                                         </div>
@@ -110,6 +117,32 @@
                                     </div>
                                 </div>
 
+                            </div>
+                            <div class="mt-4">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center d-flex">
+                                        <li class="page-item ${currentPage eq  1 ? 'disabled' : ''}">
+                                            <a class="page-link  " href="?page=${currentPage - 1}"
+                                                aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+
+                                        <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                                            <li class="page-item"><a
+                                                    class="page-link ${loop.index + 1 eq currentPage ? 'active' : ''}"
+                                                    href="?page=${loop.index + 1}">${loop.index +
+                                                    1}</a>
+                                            </li>
+                                        </c:forEach>
+
+                                        <li class="page-item ${currentPage eq totalPages ? 'disabled' : ''}">
+                                            <a class="page-link " href="?page=${currentPage + 1}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
