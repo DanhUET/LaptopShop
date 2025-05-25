@@ -36,7 +36,6 @@
                                             Are you sure to delete this user?
                                         </div>
                                         <form:form method="post" action="/admin/user/delete/${id}">
-
                                             <input type="hidden" name="id" value="${id}" />
                                             <button class="btn btn-danger">Confirm</button>
                                         </form:form>

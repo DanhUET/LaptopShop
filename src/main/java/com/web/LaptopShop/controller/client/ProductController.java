@@ -71,8 +71,17 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping("/product")
-    public String filterProduct() {
+    @GetMapping("/products")
+    public String filterProduct(Model model, @RequestParam(value = "page", required = false) Integer page) {
+        if (page == null) {
+            page = 1;
+        }
+        Pageable pageable = PageRequest.of(page - 1, 6);
+        Page<Product> pageProduct = this.productService.listProduct(pageable);
+        List<Product> products = pageProduct.getContent();
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pageProduct.getTotalPages());
+        model.addAttribute("products", products);
         return "client/product/FilterProduct";
     }
 

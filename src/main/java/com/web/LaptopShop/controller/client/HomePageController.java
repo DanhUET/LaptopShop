@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.web.LaptopShop.domain.Product;
+import com.web.LaptopShop.domain.Role;
 import com.web.LaptopShop.domain.User;
 import com.web.LaptopShop.domain.dto.RegisterDTO;
 import com.web.LaptopShop.repository.ProductRepository;
@@ -68,6 +69,11 @@ public class HomePageController {
         user.setEmail(registerDTO.getEmail());
         String password = this.passwordEncoder.encode(registerDTO.getPassword());
         user.setPassword(password);
+
+        Role role = new Role();
+        role.setName("USER");
+        user.setRole(role);
+
         user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         this.userService.handleSaveUser(user);
         return "redirect:/login";
