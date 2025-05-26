@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.web.LaptopShop.domain.Cart;
@@ -34,6 +35,10 @@ public class ProductService {
 
     public Page<Product> listProduct(Pageable pageable) {
         return this.productRepository.findAll(pageable);
+    }
+
+    public Page<Product> filterProduct(Specification<Product> spec, Pageable pageable) {
+        return this.productRepository.findAll(spec, pageable);
     }
 
     public Product detailProduct(long id) {

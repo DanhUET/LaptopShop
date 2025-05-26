@@ -72,13 +72,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:if test="${ empty products}">
-                                                    <tr>
-                                                        <td colspan="6">
-                                                            Không có sản phẩm trong giỏ hàng
-                                                        </td>
-                                                    </tr>
-                                                </c:if>
+
                                                 <c:forEach items="${products}" var="product">
                                                     <tr>
                                                         <th scope="row">

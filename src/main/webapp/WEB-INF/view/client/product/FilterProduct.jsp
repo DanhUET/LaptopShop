@@ -80,54 +80,54 @@
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="factory-3"
-                                                            value="LENOVO">
+                                                            value="LENOVO" name="factory">
                                                         <label class="form-check-label" for="factory-3">Lenovo</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="factory-4"
-                                                            value="DELL">
+                                                            value="DELL" name="factory">
                                                         <label class="form-check-label" for="factory-4">Dell</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="factory-5"
-                                                            value="LG">
+                                                            value="LG" name="factory">
                                                         <label class="form-check-label" for="factory-5">LG</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="factory-6"
-                                                            value="ACER">
+                                                            value="ACER" name="factory">
                                                         <label class="form-check-label" for="factory-6">Acer</label>
                                                     </div>
 
                                                 </div>
-                                                <!-- <div class="col-12" id="targetFilter">
+                                                <div class="col-12" id="targetFilter">
                                                     <div class="mb-2"><b>Mục đích sử dụng</b></div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="target-1"
-                                                            value="GAMING">
+                                                            value="GAMING" name="target">
                                                         <label class="form-check-label" for="target-1">Gaming</label>
                                                     </div>
 
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="target-2"
-                                                            value="SINHVIEN-VANPHONG">
+                                                            value="SINHVIEN-VANPHONG" name="target">
                                                         <label class="form-check-label" for="target-2">Sinh viên - văn
                                                             phòng</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="target-3"
-                                                            value="THIET-KE-DO-HOA">
+                                                            value="THIET-KE-DO-HOA" name="target">
                                                         <label class="form-check-label" for="target-3">Thiết kế đồ
                                                             họa</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="target-4"
-                                                            value="MONG-NHE">
+                                                            value="MONG-NHE" name="target">
                                                         <label class="form-check-label" for="target-4">Mỏng nhẹ</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="target-5"
-                                                            value="DOANH-NHAN">
+                                                            value="DOANH-NHAN" name="target">
                                                         <label class="form-check-label" for="target-5">Doanh
                                                             nhân</label>
                                                     </div>
@@ -139,32 +139,32 @@
 
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="price-2"
-                                                            value="duoi-10-trieu">
+                                                            value="duoi-10-trieu" name="price">
                                                         <label class="form-check-label" for="price-2">Dưới 10
                                                             triệu</label>
                                                     </div>
 
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="price-3"
-                                                            value="10-15-trieu">
+                                                            value="10-15-trieu" name="price">
                                                         <label class="form-check-label" for="price-3">Từ 10 - 15
                                                             triệu</label>
                                                     </div>
 
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="price-4"
-                                                            value="15-20-trieu">
+                                                            value="15-20-trieu" name="price">
                                                         <label class="form-check-label" for="price-4">Từ 15 - 20
                                                             triệu</label>
                                                     </div>
 
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" id="price-5"
-                                                            value="tren-20-trieu">
+                                                            value="tren-20-trieu" name="price">
                                                         <label class="form-check-label" for="price-5">Trên 20
                                                             triệu</label>
                                                     </div>
-                                                </div> -->
+                                                </div>
                                                 <div class="col-12">
                                                     <div class="mb-2"><b>Sắp xếp</b></div>
                                                     <div class="form-check form-check-inline">
@@ -201,6 +201,9 @@
                                         <div class="col-lg-9">
 
                                             <div class="row g-4 justify-content-start">
+                                                <c:if test="${empty products}">
+                                                    <div>Không tìm thấy sản phẩm</div>
+                                                </c:if>
                                                 <c:forEach items="${products}" var="product">
                                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                                         <div class="rounded position-relative fruite-item">
@@ -241,30 +244,35 @@
                                                 </c:forEach>
                                             </div>
                                             <div class="mt-4">
-                                                <nav aria-label="Page navigation example">
-                                                    <ul class="pagination justify-content-center d-flex">
-                                                        <li class="page-item ${currentPage eq  1 ? 'disabled' : ''}">
-                                                            <a class="page-link  " href="?page=${currentPage - 1}"
-                                                                aria-label="Previous">
-                                                                <span aria-hidden="true">&laquo;</span>
-                                                            </a>
-                                                        </li>
-                                                        <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
-                                                            <li class="page-item"><a
-                                                                    class="page-link ${loop.index + 1 eq currentPage ? 'active' : ''}"
-                                                                    href="?page=${loop.index + 1}">${loop.index +
-                                                                    1}</a>
+                                                <c:if test="${not empty products}">
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul class="pagination justify-content-center d-flex">
+                                                            <li
+                                                                class="page-item ${currentPage eq  1 ? 'disabled' : ''}">
+                                                                <a class="page-link  " href="?page=${currentPage - 1}"
+                                                                    aria-label="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                </a>
                                                             </li>
-                                                        </c:forEach>
-                                                        <li
-                                                            class="page-item ${currentPage eq totalPages ? 'disabled' : ''}">
-                                                            <a class="page-link " href="?page=${currentPage + 1}"
-                                                                aria-label="Next">
-                                                                <span aria-hidden="true">&raquo;</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
+                                                            <c:forEach begin="0" end="${totalPages - 1}"
+                                                                varStatus="loop">
+                                                                <li class="page-item"><a
+                                                                        class="page-link ${loop.index + 1 eq currentPage ? 'active' : ''}"
+                                                                        href="?page=${loop.index + 1}">${loop.index +
+                                                                        1}</a>
+                                                                </li>
+                                                            </c:forEach>
+                                                            <li
+                                                                class="page-item ${currentPage eq totalPages ? 'disabled' : ''}">
+                                                                <a class="page-link " href="?page=${currentPage + 1}"
+                                                                    aria-label="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </c:if>
+
                                             </div>
                                         </div>
                                     </div>
@@ -284,14 +292,59 @@
 
                     <!-- JavaScript Libraries -->
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
                     <script src="/client/lib/easing/easing.min.js"></script>
                     <script src="/client/lib/waypoints/waypoints.min.js"></script>
                     <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
                     <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
                     <script src="/client/js/main.js"></script>
+                    <script
+                        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+
                     <!-- Template Javascript -->
 
+                    <script>
+
+                        $(document).ready(function () {
+                            const searchParams = new URL(window.location.href).searchParams;
+
+                            // Factory
+                            const factoryParams = searchParams.getAll("factory");
+
+                            if (factoryParams) {
+                                // const factoryList = factoryParams.split(",");
+                                factoryParams.forEach(function (value) {
+                                    $('#factoryFilter .form-check-input[value="' + value + '"]').prop("checked", true);
+                                });
+                            }
+
+                            // Target
+                            const targetParams = searchParams.getAll("target");
+                            if (targetParams) {
+                                // const targetList = targetParams.split(",");
+                                targetParams.forEach(function (value) {
+                                    $('#targetFilter .form-check-input[value="' + value + '"]').prop("checked", true);
+                                });
+                            }
+
+                            // Price
+                            const priceParams = searchParams.getAll("price");
+                            if (priceParams) {
+                                // const priceList = priceParams.split(",");
+                                priceParams.forEach(function (value) {
+                                    $('#priceFilter .form-check-input[value="' + value + '"]').prop("checked", true);
+                                });
+                            }
+
+                            // Sort radio
+                            const sortValue = searchParams.get("radio-sort");
+                            if (sortValue) {
+                                $('input[name="radio-sort"][value="' + sortValue + '"]').prop("checked", true);
+                            }
+                        });
+
+                    </script>
                 </body>
 
                 </html>
